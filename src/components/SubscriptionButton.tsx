@@ -20,7 +20,12 @@ const SubscriptionButton = (props: Props) => {
     }
   };
   return (
-    <Button disabled={loading} onClick={handleSubscription} variant="outline" className="text-primary">
+    <Button
+      disabled={loading}
+      onClick={handleSubscription}
+      variant="outline"
+      className="text-primary"
+    >
       {loading ? (
         <>
           <p className="text-sm text-slate-400 mr-2">Setting up... </p>
@@ -31,10 +36,12 @@ const SubscriptionButton = (props: Props) => {
           </div>
         </>
       ) : props.isPro ? (
-        "Manage Subscriptions"
+        <>
+          Manage Subscriptions <Flame className="w-5 h-5 text-orange-500 ml-1" />{" "}
+        </>
       ) : (
         <>
-          Get Pro <Flame className="w-5 h-5 text-orange-500 ml-1" />{" "}
+          Get Pro <Flame className="w-5 h-5 text-orange-500 ml-1" />
         </>
       )}
     </Button>
