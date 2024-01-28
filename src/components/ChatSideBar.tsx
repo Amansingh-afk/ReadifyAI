@@ -47,7 +47,7 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
             </Link>
           ))}
         </div>
-        <div className="absolute bottom-4 left-4 w-full">
+        {/* <div className="absolute bottom-4 left-4 w-full">
           <div className="flex items-center p-4 gap-2 text-sm text-slate-500 flex-wrap">
             <SubscriptionButton isPro={isPro} />
             <Link href="/">
@@ -57,7 +57,7 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
               </Button>
             </Link>
           </div>
-        </div>
+        </div> */}
       </div>
     </ScrollArea>
   );
