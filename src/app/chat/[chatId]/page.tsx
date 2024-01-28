@@ -8,6 +8,12 @@ import { auth } from "@clerk/nextjs";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import React from "react";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
 
 type Props = {
   params: {
@@ -32,22 +38,40 @@ const ChatPage = async ({ params: { chatId } }: Props) => {
   const isPro = await checkSubscription();
 
   return (
-    <div className="flex max-h-screen overflow-scroll">
-      <div className="flex w-full max-h-screen overflow-scroll">
-        {/* chat sidebar */}
-        <div className="flex-[1] max-w-xs">
-          <ChatSideBar chats={_chats} chatId={parseInt(chatId)} isPro={isPro} />
-        </div>
-        {/* pdf viewer */}
-        <div className="max-h-screen p-4 oveflow-scroll flex-[5]">
-          <PDFViewer pdf_url={currentChat?.pdfUrl || ""} />
-        </div>
-        {/* chat component */}
-        <div className="flex-[3] border-l-4 border-l-slate-200">
-          <ChatComponent chatId={parseInt(chatId)} />
+    <ScrollArea className="min-w-full bg-background">
+      <div className="flex max-h-screen">
+        <div className="w-full max-h-screen">
+          <ResizablePanelGroup direction="horizontal">
+            {/* chat sidebar */}
+            <ResizablePanel defaultSize={24}>
+              <div className="max-w-xs">
+                <ChatSideBar
+                  chats={_chats}
+                  chatId={parseInt(chatId)}
+                  isPro={isPro}
+                />
+              </div>
+            </ResizablePanel>
+
+            <ResizableHandle withHandle />
+            {/* pdf viewer */}
+            <ResizablePanel defaultSize={36}>
+              <div className="max-h-screen p-4">
+                <PDFViewer pdf_url={currentChat?.pdfUrl || ""} />
+              </div>
+            </ResizablePanel>
+
+            <ResizableHandle withHandle />
+            {/* chat component */}
+            <ResizablePanel defaultSize={40}>
+              <div className="">
+                <ChatComponent chatId={parseInt(chatId)} />
+              </div>
+            </ResizablePanel>
+          </ResizablePanelGroup>
         </div>
       </div>
-    </div>
+    </ScrollArea>
   );
 };
 
